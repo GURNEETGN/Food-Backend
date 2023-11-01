@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const { db_link } = require("../secret");
+require('dotenv').config();
 const validator = require("email-validator");
 
-mongoose.connect(db_link).then(function () {
+mongoose.connect(process.env.DB_LINK).then(function () {
     console.log("database is connected");
 }).catch(function (err) {
     console.log(err);

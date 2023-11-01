@@ -3,11 +3,12 @@ const userModel = require("../model/userModel");
 const foodModel = require("../model/foodModel");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require("../secret");
+require('dotenv').config();
+
 
 async function protectRoute(req, res, next) {
     try {
-        let decreptedToken = jwt.verify(req.cookies.JWT, jwt_secret);
+        let decreptedToken = jwt.verify(req.cookies.JWT, process.env.JWT_SECRET);
         if (decreptedToken) {
             let userId = decreptedToken.id;
             req.userId = userId;
@@ -47,7 +48,7 @@ async function loginUser(req, res) {
         let user = await userModel.findOne({ email });
         if (user) {
             if (user.password == password) {
-                let token = jwt.sign({ id: user["_id"] }, jwt_secret);
+                let token = jwt.sign({ id: user["_id"] }, process.env.JWT_SECRET);
                 res.cookie("JWT", token);
                 res.status(200).json({
                     message: "user logged in",

@@ -97,9 +97,7 @@ async function updateOrder(req, res) {
 async function deleteOrder(req, res) {
     try {
         let { id } = req.params;
-        console.log('order id', id);
         let orderFound = await orderModel.findOne({ orderId: id });
-        console.log('order found is'. orderFound);
         let order = await orderModel.deleteOne({ _id: orderFound._id });
         
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { db_link } = require("../secret");
+require('dotenv').config();
 
-mongoose.connect(db_link).then(function () {
+mongoose.connect(process.env.DB_LINK).then(function () {
     console.log("database is connected");
 }).catch(function (err) {
     console.log(err);
